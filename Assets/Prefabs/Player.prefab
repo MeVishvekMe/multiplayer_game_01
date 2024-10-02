@@ -16,11 +16,11 @@ GameObject:
   - component: {fileID: -8827912950759739085}
   - component: {fileID: 1479746996488074341}
   - component: {fileID: 3223094447564091930}
-  - component: {fileID: 2112869598576733636}
-  - component: {fileID: -920882567356135013}
+  - component: {fileID: -4528495737804044827}
+  - component: {fileID: -3484946755017129030}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2112869598576733636
+--- !u!114 &-4528495737804044827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 19551106518982406}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: dad6da0ba60d41847a12e1a1f03cd47f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UseUnreliableDeltas: 0
@@ -246,7 +246,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &-920882567356135013
+--- !u!114 &-3484946755017129030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

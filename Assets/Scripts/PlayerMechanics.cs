@@ -23,27 +23,27 @@ public class PlayerMechanics : NetworkBehaviour {
     
     private void Awake() {
         _inputActions = new PlayerInputActions();
-        
+        _rb = GetComponent<Rigidbody>();
         
         leftSpawnPointTransform = GameObject.Find("LeftSpawnPoint").transform;
-                rightSpawnPointTransform = GameObject.Find("RightSpawnPoint").transform;
+        rightSpawnPointTransform = GameObject.Find("RightSpawnPoint").transform;
         
         Debug.Log("Is server : " + IsServer + "\n IsClient : " + IsClient + "\n IsHost : " + IsHost);
         
     }
 
     private void Start() {
-        _rb = GetComponent<Rigidbody>();
-        if (IsServer || IsHost) {
-            _rb.interpolation = RigidbodyInterpolation.Interpolate;
-            _rb.isKinematic = false;
-            _rb.useGravity = true;
-        }
-        else {
-            _rb.interpolation = RigidbodyInterpolation.Interpolate;
-            _rb.isKinematic = true;
-            _rb.useGravity = false;
-        }
+        
+        // if (IsServer || IsHost) {
+        //     _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        //     _rb.isKinematic = false;
+        //     _rb.useGravity = true;
+        // }
+        // else {
+        //     _rb.interpolation = RigidbodyInterpolation.Interpolate;
+        //     _rb.isKinematic = true;
+        //     _rb.useGravity = false;
+        // }
         
         
     }
@@ -52,16 +52,15 @@ public class PlayerMechanics : NetworkBehaviour {
 
     public override void OnNetworkSpawn() {
         base.OnNetworkSpawn();
-        Debug.Log("spawned left");
-        transform.position = new Vector3(-7.5f, 4.5f, 0);
-        // if (IsOwner && IsHost) {
-        //     transform.position = leftSpawnPointTransform.position;
-        //     
-        // }
-        // else if (IsOwner && IsClient) {
-        //     Debug.Log("Teleported right");
-        //     transform.position = rightSpawnPointTransform.position;
-        // }
+        // Debug.Log("spawned left");
+        // transform.position = new Vector3(-7.5f, 4.5f, 0);
+        if (IsOwner && IsHost) {
+            transform.position = leftSpawnPointTransform.position;
+        }
+        else if (IsOwner && IsClient) {
+            Debug.Log("Teleported right");
+            transform.position = rightSpawnPointTransform.position;
+        }
     }
 
     private void OnEnable() {
@@ -86,9 +85,9 @@ public class PlayerMechanics : NetworkBehaviour {
     private void OnCollisionEnter(Collision other) {
         if (other.collider.CompareTag("Ground")) {
             canJump = true;
-            if (_rb.interpolation == RigidbodyInterpolation.None) {
-                _rb.interpolation = RigidbodyInterpolation.Interpolate;
-            }
+            // if (_rb.interpolation == RigidbodyInterpolation.None) {
+            //     _rb.interpolation = RigidbodyInterpolation.Interpolate;
+            // }
         }
 
         // if (other.collider.CompareTag("Ball")) {
@@ -116,22 +115,22 @@ public class PlayerMechanics : NetworkBehaviour {
         }
     }
 
-    [ServerRpc]
-    private void ChangeVelocityServerRpc(ulong networkObjectId, float moveValue)
-    {
-        
-        Debug.Log("ChangeVelocity" + networkObjectId + " : " + moveValue);
-        
-        // Find the GameObject with the specified NetworkObjectId on the server
-        NetworkObject networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[networkObjectId];
-        Rigidbody rb = networkObject.GetComponent<Rigidbody>();
-
-        // Set the velocity of the Rigidbody
-        rb.velocity = new Vector3(moveValue * velocityMag, rb.velocity.y, rb.velocity.z);
-
-        // Update the local Rigidbody as well (if needed)
-        _rb.velocity = new Vector3(_moveValue * velocityMag, _rb.velocity.y, _rb.velocity.z);
-    }
+    // [ServerRpc]
+    // private void ChangeVelocityServerRpc(ulong networkObjectId, float moveValue)
+    // {
+    //     
+    //     Debug.Log("ChangeVelocity" + networkObjectId + " : " + moveValue);
+    //     
+    //     // Find the GameObject with the specified NetworkObjectId on the server
+    //     NetworkObject networkObject = NetworkManager.Singleton.SpawnManager.SpawnedObjects[networkObjectId];
+    //     Rigidbody rb = networkObject.GetComponent<Rigidbody>();
+    //
+    //     // Set the velocity of the Rigidbody
+    //     rb.velocity = new Vector3(moveValue * velocityMag, rb.velocity.y, rb.velocity.z);
+    //
+    //     // Update the local Rigidbody as well (if needed)
+    //     _rb.velocity = new Vector3(_moveValue * velocityMag, _rb.velocity.y, _rb.velocity.z);
+    // }
 
     void FixedUpdate()
     {
@@ -140,10 +139,7 @@ public class PlayerMechanics : NetworkBehaviour {
         // Read move value from input
         
         _moveValue = _moveAction.ReadValue<float>();
-        Debug.Log("Fixed Update" + _moveValue);
-
-        // Call the ServerRpc method, passing the NetworkObjectId instead of the GameObject
-        ChangeVelocityServerRpc(NetworkObject.NetworkObjectId, _moveValue);
+        _rb.velocity = new Vector3(_moveValue * velocityMag, _rb.velocity.y, _rb.velocity.z);
     }
     
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4758749588268013884}
   - component: {fileID: 3364768824028614207}
   - component: {fileID: -2243968614626246822}
-  - component: {fileID: 1475952845497879206}
+  - component: {fileID: -1477259455828344202}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Ball
@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37dba9bd8cd7e3544a199df361025bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceMagnitude: 5
 --- !u!54 &4758749588268013884
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,8 +133,8 @@ Rigidbody:
   m_GameObject: {fileID: 263848217526882897}
   serializedVersion: 4
   m_Mass: 0.2
-  m_Drag: 0.2
-  m_AngularDrag: 0.2
+  m_Drag: 0
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -157,7 +158,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 263848217526882897}
-  m_Material: {fileID: 13400000, guid: 68066389ce04e704297beae22fe4fe0c, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -190,9 +191,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -202,7 +203,7 @@ MonoBehaviour:
   InLocalSpace: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &1475952845497879206
+--- !u!114 &-1477259455828344202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
